@@ -1,0 +1,9 @@
+/* src/App.css */
+/* Remove Vite template constraints so pages can take full viewport */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}

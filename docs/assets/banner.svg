@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">SentinelScan</title>
+  <desc id="desc">Inspect, classify, explain</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070b14"/><stop offset="1" stop-color="#1d1023"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ef4444"/><stop offset=".5" stop-color="#f97316"/><stop offset="1" stop-color="#a855f7"/></linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#f87171" stroke-opacity=".07"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1280" height="420" rx="28" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="28" fill="url(#grid)"/>
+  <g transform="translate(78 55)">
+    <path d="M150 14L266 56v86c0 77-45 138-116 171C79 280 34 219 34 142V56z" fill="#140d19" stroke="url(#accent)" stroke-width="4"/>
+    <path d="M150 58v203M77 105h146M65 160h170M83 216h134" stroke="#ef4444" stroke-opacity=".25" stroke-width="2"/>
+    <path d="M72 187l43-44 34 26 70-78" fill="none" stroke="url(#accent)" stroke-width="8" filter="url(#glow)"/>
+    <circle cx="72" cy="187" r="7" fill="#fff"/><circle cx="115" cy="143" r="7" fill="#fff"/><circle cx="149" cy="169" r="7" fill="#fff"/><circle cx="219" cy="91" r="7" fill="#fff"/>
+  </g>
+  <g transform="translate(380 104)">
+    <text x="0" y="80" fill="#f8fafc" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="75" font-weight="750" letter-spacing="-4">SENTINEL<tspan fill="#f05252">SCAN</tspan></text>
+    <rect x="2" y="110" width="660" height="4" rx="2" fill="url(#accent)"/>
+    <text x="2" y="165" fill="#fecaca" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="28" letter-spacing="2">INSPECT · CLASSIFY · EXPLAIN</text>
+    <text x="2" y="210" fill="#a1a1aa" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="20">React · Express · Prisma · Nmap · ClamAV · scikit-learn</text>
+  </g>
+</svg>

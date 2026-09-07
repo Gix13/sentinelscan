@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/apps/frontend"
+    schedule:
+      interval: monthly
+  - package-ecosystem: npm
+    directory: "/apps/backend"
+    schedule:
+      interval: monthly
+  - package-ecosystem: pip
+    directory: "/apps/ml"
+    schedule:
+      interval: monthly
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly

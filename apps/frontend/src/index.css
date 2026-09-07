@@ -1,0 +1,47 @@
+/* src/index.css */
+
+:root {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.92);
+  background: #070a0f;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full-viewport layout baseline */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  /* IMPORTANT: remove flex-centering */
+  display: block;
+
+  background: #070a0f;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.9;
+}
+
+/* Buttons baseline (neutral; your page CSS will style more) */
+button {
+  font-family: inherit;
+}

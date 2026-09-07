@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
+    env:
+      DATABASE_URL: file:./prisma/ci.db
+      ADMIN_TOKEN: ci-only-placeholder
+      ENABLE_NMAP: "false"
+      ENABLE_CLAMSCAN: "false"
+      ENABLE_METASPLOIT: "false"
+      ENABLE_PHISHING_ML: "false"
+      ENABLE_NETWORK_ML: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/backend/package-lock.json
+      - run: npm ci
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - run: npx prisma generate
+      - run: npx prisma validate
+      - run: npm test
+      - name: Check JavaScript syntax
+        run: find src test -name '*.js' -print0 | xargs -0 -n1 node --check
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/frontend/package-lock.json
+      - run: npm ci
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - run: npm run lint -- --max-warnings=0
+      - run: npm run build
+
+  ml-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile ML sources
+        run: python -m compileall -q apps/ml
+      - name: Smoke-test feature extraction
+        run: |
+          cd apps/ml
+          python - <<'PY'
+          from feature_extractors import extract_network_features, extract_url_features
+          assert extract_url_features("https://example.com/login")
+          assert extract_network_features([{"port": 443, "protocol": "tcp", "service": "https"}])
+          PY

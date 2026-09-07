@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Report {
+  id        String     @id @default(cuid())
+  type      String     // "file" or "website"
+  status    String     @default("queued") // "queued", "running", "done", "failed"
+
+  // Input data
+  inputOriginalName  String?
+  inputSize         Int?
+  inputMimeType     String?
+  inputFilePath     String?
+  inputSha256       String?
+  inputUrl          String?
+
+  // Results
+  summary   String?
+  findings  Finding[]
+  scanData  String?   // JSON blob: { clamscan, virusTotal, verdict, findings }
+
+  // Metadata
+  sha256    String?
+  engine    String     @default("sentinelscan-v1")
+  finishedAt DateTime?
+  processingTime Int?
+
+  // Error info
+  errorCode String?
+  errorMessage String?
+
+  // Tracking
+  userId    String     @default("anonymous")
+
+  // Timestamps
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Finding {
+  id        String   @id @default(cuid())
+  severity  String   // "info", "low", "medium", "high", "critical"
+  title     String
+  detail    String
+
+  reportId  String
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  @@index([reportId])
+}

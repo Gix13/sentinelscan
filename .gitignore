@@ -1,0 +1,57 @@
+# Credentials and environment configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and builds
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+
+# Runtime databases and uploaded files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+apps/backend/uploads/
+apps/backend/quarantine/
+apps/backend/tmp_uploads/
+test-uploads/
+
+# ML datasets, serialized models, and evaluation artifacts
+apps/ml/data/*
+!apps/ml/data/README.md
+apps/ml/models/*
+!apps/ml/models/README.md
+*.joblib
+*_confusion_matrix.png
+
+# Scan artifacts and local evidence
+reports/
+results/
+captures/
+*.har
+*.pcap
+*.pcapng
+*.log
+*_dump.txt
+*_qr.png
+.playwright-mcp/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
