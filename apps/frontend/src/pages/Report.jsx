@@ -173,11 +173,11 @@ export default function Report() {
               </div>
               <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, fontWeight: 600 }}>
                 {report.type === "website"
-                  ? "Port scanning and service detection in progress. This typically takes 60–90 seconds."
+                  ? "Port scanning and service detection in progress. This typically takes 60-90 seconds."
                   : "Running malware analysis. This should complete shortly."}
               </div>
               <div style={{ marginTop: 14, color: "rgba(255,255,255,0.35)", fontSize: 12, fontWeight: 600 }}>
-                Target: {report.input?.url || report.input?.originalName || "—"}
+                Target: {report.input?.url || report.input?.originalName || "Not available"}
               </div>
               <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
             </div>
@@ -318,7 +318,7 @@ export default function Report() {
                       <strong>ClamAV:</strong>{" "}
                       {report.meta.scan.clamscan.available
                         ? report.meta.scan.clamscan.infected
-                          ? "Infected — see findings above"
+                          ? "Infected; see findings above"
                           : "No detection"
                         : "ClamAV not available"}
                     </div>
@@ -368,7 +368,7 @@ export default function Report() {
                                 <span style={{ color: "rgba(180,140,255,0.9)" }}>{p.port}/{p.protocol}</span>
                                 <span style={{ color: "rgba(255,255,255,0.8)" }}>{p.service}</span>
                                 <span style={{ color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>
-                                  {[p.product, p.version].filter(Boolean).join(" ") || "—"}
+                                  {[p.product, p.version].filter(Boolean).join(" ") || "Not available"}
                                 </span>
                               </div>
                             ))}

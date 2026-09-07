@@ -23,21 +23,21 @@ const upload = multer({
 
 // Risk levels for well-known ports
 const PORT_RISK = {
-  21:    { severity: "high",     label: "FTP",        reason: "Unencrypted file transfer protocol — credentials sent in plaintext." },
-  22:    { severity: "medium",   label: "SSH",        reason: "Remote access service — ensure key-based auth and restrict to trusted IPs." },
-  23:    { severity: "critical", label: "Telnet",     reason: "Unencrypted remote access — transmits credentials and data in plaintext." },
-  25:    { severity: "medium",   label: "SMTP",       reason: "Mail server — verify that open relaying is disabled." },
+  21:    { severity: "high",     label: "FTP",        reason: "Unencrypted file transfer protocol - credentials sent in plaintext." },
+  22:    { severity: "medium",   label: "SSH",        reason: "Remote access service - ensure key-based auth and restrict to trusted IPs." },
+  23:    { severity: "critical", label: "Telnet",     reason: "Unencrypted remote access - transmits credentials and data in plaintext." },
+  25:    { severity: "medium",   label: "SMTP",       reason: "Mail server - verify that open relaying is disabled." },
   53:    { severity: "low",      label: "DNS",        reason: "Domain name resolution service." },
   80:    { severity: "info",     label: "HTTP",       reason: "Standard web traffic." },
   110:   { severity: "medium",   label: "POP3",       reason: "Unencrypted mail retrieval." },
-  135:   { severity: "critical", label: "RPC",        reason: "Windows RPC endpoint mapper — frequent attack target." },
-  139:   { severity: "critical", label: "NetBIOS",   reason: "Windows file sharing — frequent attack target." },
+  135:   { severity: "critical", label: "RPC",        reason: "Windows RPC endpoint mapper - frequent attack target." },
+  139:   { severity: "critical", label: "NetBIOS",   reason: "Windows file sharing - frequent attack target." },
   143:   { severity: "medium",   label: "IMAP",       reason: "Unencrypted mail access." },
   443:   { severity: "info",     label: "HTTPS",      reason: "Standard encrypted web traffic." },
-  445:   { severity: "critical", label: "SMB",        reason: "Windows file sharing — targeted by EternalBlue and ransomware." },
+  445:   { severity: "critical", label: "SMB",        reason: "Windows file sharing - targeted by EternalBlue and ransomware." },
   1433:  { severity: "high",     label: "MSSQL",      reason: "Microsoft SQL Server database exposed to the internet." },
   3306:  { severity: "high",     label: "MySQL",      reason: "MySQL database exposed to the internet." },
-  3389:  { severity: "critical", label: "RDP",        reason: "Remote Desktop Protocol — high-value target for brute-force and exploitation." },
+  3389:  { severity: "critical", label: "RDP",        reason: "Remote Desktop Protocol - high-value target for brute-force and exploitation." },
   5432:  { severity: "high",     label: "PostgreSQL", reason: "PostgreSQL database exposed to the internet." },
   6379:  { severity: "high",     label: "Redis",      reason: "Redis cache often runs without authentication when exposed." },
   8080:  { severity: "low",      label: "HTTP-alt",   reason: "Alternative HTTP port." },
@@ -53,7 +53,7 @@ function portFindings(ports) {
     const risk = PORT_RISK[p.port];
     const severity = risk?.severity ?? "low";
     const label = risk?.label ?? p.service ?? "Unknown service";
-    const reason = risk?.reason ?? "Uncommon open port — review whether this service needs to be publicly accessible.";
+    const reason = risk?.reason ?? "Uncommon open port - review whether this service needs to be publicly accessible.";
 
     const versionStr = [p.product, p.version].filter(Boolean).join(" ");
     const detail = versionStr
@@ -62,7 +62,7 @@ function portFindings(ports) {
 
     findings.push({
       severity,
-      title: `Open port ${p.port}/${p.protocol} — ${label}`,
+      title: `Open port ${p.port}/${p.protocol} - ${label}`,
       detail,
     });
   }
@@ -90,7 +90,7 @@ router.post("/website", async (req, res, next) => {
 
     await updateReport(report.id, { status: "running" });
 
-    // Return immediately — frontend will poll GET /api/report/:id
+    // Return immediately - frontend will poll GET /api/report/:id
     res.json({
       ok: true,
       data: { reportId: report.id, status: "running" }
@@ -103,7 +103,7 @@ router.post("/website", async (req, res, next) => {
   }
 });
 
-// Background scan — runs after HTTP response is already sent
+// Background scan - runs after HTTP response is already sent
 async function runWebsiteScan(reportId, url) {
   // Safety timeout: if scan hasn't finished in 5 minutes, mark as failed
   const timeout = setTimeout(async () => {
@@ -186,11 +186,11 @@ async function _runWebsiteScan(reportId, url) {
   const highCount = portFinds.filter((f) => f.severity === "high").length;
   let summary = nmapResult.summary;
   if (criticalCount > 0 || highCount > 0) {
-    summary += ` — ${criticalCount} critical, ${highCount} high risk port${highCount !== 1 ? "s" : ""} found.`;
+    summary += ` - ${criticalCount} critical, ${highCount} high risk port${highCount !== 1 ? "s" : ""} found.`;
   } else if (nmapResult.openPortCount > 0) {
-    summary += " — No high-risk ports detected.";
+    summary += " - No high-risk ports detected.";
   } else {
-    summary += " — No open ports detected.";
+    summary += " - No open ports detected.";
   }
 
   // Run both ML classifiers in parallel (real-data models)
@@ -205,7 +205,7 @@ async function _runWebsiteScan(reportId, url) {
     const isPhish = phishingResult.isPhishing;
     findings.push({
       severity: isPhish ? "critical" : "info",
-      title: `Phishing Detection — ${phishingResult.label}`,
+      title: `Phishing Detection - ${phishingResult.label}`,
       detail: `${phishingResult.model} classified this URL as ${phishingResult.label} with ${(phishingResult.confidence * 100).toFixed(1)}% confidence. Model accuracy on PhiUSIIL test set: ${(phishingResult.modelAccuracy * 100).toFixed(1)}%.`,
     });
     if (isPhish) {
@@ -218,7 +218,7 @@ async function _runWebsiteScan(reportId, url) {
     const sev = cls === "Normal" ? "info" : (cls === "DoS" || cls === "U2R") ? "high" : "medium";
     findings.push({
       severity: sev,
-      title: `Network Attack Classification — ${cls}`,
+      title: `Network Attack Classification - ${cls}`,
       detail: `${networkResult.model} classified this host's network profile as ${cls} with ${(networkResult.confidence * 100).toFixed(1)}% confidence. Model trained on NSL-KDD (test accuracy: ${(networkResult.modelAccuracy * 100).toFixed(1)}%).`,
     });
     if (cls !== "Normal") {
@@ -245,7 +245,7 @@ async function _runWebsiteScan(reportId, url) {
       if (m.vulnerable && (m.severity === "critical" || m.severity === "high")) {
         findings.push({
           severity: m.severity,
-          title: `Metasploit — ${m.name.split("/").pop()}`,
+          title: `Metasploit - ${m.name.split("/").pop()}`,
           detail: `${m.finding} (Port ${m.port}/tcp)`
         });
       }
@@ -284,7 +284,7 @@ function buildFileRiskAssessment(scanResult) {
     return {
       riskLevel: "Suspicious",
       confidence: 0.70,
-      detail: `VirusTotal: ${vtCount}/${vtTotal} engines flagged — low detection count, possibly a false positive or emerging threat.`,
+      detail: `VirusTotal: ${vtCount}/${vtTotal} engines flagged - low detection count, possibly a false positive or emerging threat.`,
     };
   }
 
@@ -293,7 +293,7 @@ function buildFileRiskAssessment(scanResult) {
     confidence: scanResult.clamscan?.available ? 0.95 : 0.60,
     detail: scanResult.clamscan?.available
       ? "ClamAV reports clean." + (scanResult.virusTotal?.available ? " No VirusTotal detections." : "")
-      : "Limited scan coverage — ClamAV not available.",
+      : "Limited scan coverage - ClamAV not available.",
   };
 }
 
@@ -361,7 +361,7 @@ router.post("/file", upload.single("file"), async (req, res, next) => {
         severity: fileRisk.riskLevel === "Dangerous" ? "critical"
           : fileRisk.riskLevel === "Suspicious" ? "medium"
           : "info",
-        title: `File Risk Assessment — ${fileRisk.riskLevel}`,
+        title: `File Risk Assessment - ${fileRisk.riskLevel}`,
         detail: fileRisk.detail
       });
     }
@@ -389,7 +389,7 @@ router.post("/file", upload.single("file"), async (req, res, next) => {
     // Update report with completion data and include scan metadata
     await updateReport(report.id, {
       status: "done",
-      summary: fileRisk?.riskLevel === "Safe" ? "File scanned — no threats detected." : "Baseline file checks completed.",
+      summary: fileRisk?.riskLevel === "Safe" ? "File scanned - no threats detected." : "Baseline file checks completed.",
       "input.sha256": hash,
       "input.filePath": savedFile.storagePath,
       "meta.sha256": hash,

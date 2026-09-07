@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="docs/assets/banner.svg" alt="SentinelScan — inspect, classify, explain" width="100%">
+  <img src="docs/assets/banner.svg" alt="SentinelScan: inspect, classify, explain" width="100%">
+
+  <h3>Security engineering by <a href="https://github.com/Gix13">Gio Abou Sleiman</a>, with the SentinelScan project team</h3>
 
   <p><strong>An educational full-stack security platform for file triage and authorized website assessment.</strong></p>
 
@@ -22,11 +24,11 @@ The safest way to explore the project is its frontend-only demonstration mode: e
 <div align="center">
   <img src="docs/assets/ui-preview.png" alt="SentinelScan mock-mode dashboard" width="92%">
   <br>
-  <sub>Mock-mode dashboard — no live target or assessment data.</sub>
+  <sub>Mock-mode dashboard with no live target or assessment data.</sub>
 </div>
 
 > [!IMPORTANT]
-> SentinelScan is an educational final-year project—not a production malware sandbox, a hosted public scanner, or a substitute for professional validation. Network features may be used only on systems covered by explicit authorization.
+> SentinelScan is an educational final-year project, not a production malware sandbox, a hosted public scanner, or a substitute for professional validation. Network features may be used only on systems covered by explicit authorization.
 
 ## What it demonstrates
 

@@ -109,7 +109,7 @@ function parseOutput(stdout, planned) {
     const line = stripAnsi(raw).trim();
     if (!line) continue;
 
-    // Detect "use <module>" — handle both `msf6 > use ...` AND `resource (path)> use ...`
+    // Detect "use <module>" in both `msf6 > use ...` and `resource (path)> use ...`.
     const useMatch = line.match(/(?:^|>\s*)use\s+(\S+)/);
     if (useMatch) {
       flushCurrent();
@@ -263,7 +263,7 @@ export async function detectVulns(nmapResult) {
 
   let summary;
   if (vulnerabilitiesFound > 0) {
-    summary = `Metasploit ran ${planned.length} detection modules — ${vulnerabilitiesFound} vulnerabilit${vulnerabilitiesFound === 1 ? "y" : "ies"} found.`;
+    summary = `Metasploit ran ${planned.length} detection modules. ${vulnerabilitiesFound} vulnerabilit${vulnerabilitiesFound === 1 ? "y" : "ies"} found.`;
   } else {
     summary = `Metasploit ran ${planned.length} detection modules. No vulnerabilities found.`;
   }

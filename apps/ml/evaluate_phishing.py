@@ -29,7 +29,7 @@ def main():
     acc = accuracy_score(y_test, y_pred)
 
     print("=" * 70)
-    print(f"PHISHING URL CLASSIFIER — Real-data ML on PhiUSIIL")
+    print("PHISHING URL CLASSIFIER: Real-data ML on PhiUSIIL")
     print("=" * 70)
     print(f"Best model: {model_name}")
     print(f"Test accuracy: {acc:.4f} ({acc*100:.2f}%)\n")
@@ -65,7 +65,7 @@ def main():
     ax.set(xticks=range(len(label_names)), yticks=range(len(label_names)),
            xticklabels=label_names, yticklabels=label_names,
            xlabel="Predicted", ylabel="Actual",
-           title=f"Phishing URL — {model_name} ({acc:.1%})")
+           title=f"Phishing URL: {model_name} ({acc:.1%})")
     thresh = cm.max() / 2
     for i in range(len(label_names)):
         for j in range(len(label_names)):

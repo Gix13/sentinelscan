@@ -264,7 +264,7 @@ def extract_network_features(ports):
         non_web = [s for s in services if s not in ("http", "http_443")]
         primary_service = non_web[0] if non_web else services[0]
 
-    # Build the feature dict — defaults of 0 for fields we can't derive
+    # Build the feature dict with defaults of 0 for fields we cannot derive.
     features = {name: 0 for name in NETWORK_FEATURE_NAMES if name not in NETWORK_CATEGORICAL}
     features["dst_host_count"] = min(255, num_ports)
     features["dst_host_srv_count"] = min(255, num_unique)

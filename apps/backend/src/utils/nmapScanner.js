@@ -70,7 +70,7 @@ function runNmapRaw(hostname) {
   return new Promise((resolve, reject) => {
     const args = [
       "-sV",
-      "--version-intensity", "2",  // lighter probing — faster than default (7)
+      "--version-intensity", "2",  // lighter probing than the default (7)
       "-T4",
       "--top-ports", "1000",
       "-oX", "-",

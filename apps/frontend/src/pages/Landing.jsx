@@ -29,7 +29,7 @@ export default function Landing() {
           </h1>
 
           <p className="landingSubtitle">
-            Website scanning, file scanning, and report-ready findings — built for clarity, speed, and clean results.
+            Website scanning, file scanning, and report-ready findings, built for clarity, speed, and clean results.
           </p>
 
           <div className="landingActions">

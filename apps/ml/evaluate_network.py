@@ -30,7 +30,7 @@ def main():
     acc = accuracy_score(y_test, y_pred)
 
     print("=" * 70)
-    print(f"NETWORK ATTACK CLASSIFIER — Real-data ML on NSL-KDD")
+    print("NETWORK ATTACK CLASSIFIER: Real-data ML on NSL-KDD")
     print("=" * 70)
     print(f"Best model: {model_name}")
     print(f"Test accuracy: {acc:.4f} ({acc*100:.2f}%)\n")
@@ -65,7 +65,7 @@ def main():
     ax.set(xticks=range(len(label_names)), yticks=range(len(label_names)),
            xticklabels=label_names, yticklabels=label_names,
            xlabel="Predicted", ylabel="Actual",
-           title=f"Network Attack — {model_name} ({acc:.1%})")
+           title=f"Network Attack: {model_name} ({acc:.1%})")
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
     thresh = cm.max() / 2
     for i in range(len(label_names)):
