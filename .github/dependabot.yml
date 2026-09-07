@@ -4,15 +4,49 @@ updates:
     directory: "/apps/frontend"
     schedule:
       interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      routine-updates:
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: npm
     directory: "/apps/backend"
     schedule:
       interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      routine-updates:
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: pip
     directory: "/apps/ml"
     schedule:
       interval: monthly
+    open-pull-requests-limit: 3
+    groups:
+      routine-updates:
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: monthly
+    groups:
+      actions:
+        patterns:
+          - "*"
