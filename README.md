@@ -9,6 +9,8 @@
   ![Python](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
   ![Safe default](https://img.shields.io/badge/default-synthetic%20mock%20mode-0f766e)
   [![License: MIT](https://img.shields.io/badge/license-MIT-2563eb.svg)](LICENSE)
+
+  **[Explore the safe live demo](https://sentinelscan-demo.vercel.app)**
 </div>
 
 ## Overview
